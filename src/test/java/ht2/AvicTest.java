@@ -62,6 +62,12 @@ public class AvicTest {
         Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17599 * 2 + 1159 * 2 + 5699);
     }
 
+    @Test(priority = 2)
+    public void checkProfilePage(){
+        new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
+                .clickRememberMeFlag().clickRememberMeFlag().clickForgetPasswordButton().clickCancelForgetPasswordButton().enterButton();
+    }
+
     @AfterMethod(alwaysRun = true)
     public void closeBrowser(){
         try {
