@@ -40,38 +40,48 @@ public final class SearchPage extends AbstractPage{
     }
 
     public SearchPage setMinPriceSlider(String count){
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(minPrice));
+        waitFor(minPrice);
         minPrice.clear();
         minPrice.sendKeys(count);
         return this;
     }
 
     public SearchPage setMaxPriceSlider(String count) {
-        new WebDriverWait(driver,WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(maxPrice));
+        waitFor(maxPrice);
         maxPrice.clear();
         maxPrice.sendKeys(count, Keys.RETURN);
         return this;
     }
 
     public SearchPage setOnlyAvailable(){
-        new WebDriverWait(driver,WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(onlyAvailable));
+        waitFor(onlyAvailable);
         onlyAvailable.click();
         return this;
     }
 
+    public SearchPage setFastDelivery(){
+        waitFor(fastDelivery);
+        fastDelivery.click();
+        return this;
+    }
+
     public SearchPage clickToResetFilters(){
-        new WebDriverWait(driver,WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(resetFilters));
+        waitFor(resetFilters);
         resetFilters.click();
         return this;
     }
 
     public SearchPage clickToApplyFilters() {
-        new WebDriverWait(driver,WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(applyFilters));
+        waitFor(applyFilters);
         applyFilters.click();
         return this;
     }
 
     public List getSearchResults() {
         return driver.findElements(By.xpath("//div[@class='prod-cart height']"));
+    }
+
+    private void waitFor(WebElement element) {
+        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(element));
     }
 }

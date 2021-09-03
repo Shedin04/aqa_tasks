@@ -26,23 +26,24 @@ public class AvicTest {
     }
 
     @Test(priority = 1)
-    public void searchAndFilters(){
+    public void searchAndFilterByPrice(){
         List actual = new HomePage(driver).openPage().putIntoSearchForm("Мультиварка").searchButtonClick()
                 .setMaxPriceSlider("5000").setMinPriceSlider("4000").clickToApplyFilters().getSearchResults();
         Assert.assertEquals(actual.size(), 11);
     }
 
     @Test(priority = 1)
-    public void checkSupportFormEmptyRequest(){
+    public void checkSupportFormWithEmptyRequest(){
         new HomePage(driver).openPage().clickSubscribeButton();
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='form-field input-field error']")).isDisplayed());
     }
 
     @Test(priority = 2)
-    public void check(){
-        new HomePage(driver).openPage().putIntoSearchForm("Motorola").searchButtonClick()
-                .setOnlyAvailable().clickToResetFilters();
-/    }
+    public void checkColumnRightFilters(){
+        List actual = new HomePage(driver).openPage().putIntoSearchForm("Motorola").searchButtonClick()
+                .setOnlyAvailable().clickToResetFilters().setFastDelivery().getSearchResults();
+        Assert.assertFalse(actual.size()>0); //size must be 0
+    }
 
     @AfterMethod(alwaysRun = true)
     public void closeBrowser() throws InterruptedException {
