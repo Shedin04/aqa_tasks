@@ -1,12 +1,17 @@
 package ht2;
 
 import ht2.pages.*;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 public class AvicTest {
     private WebDriver driver;
@@ -20,15 +25,28 @@ public class AvicTest {
         driver = new ChromeDriver(options);
     }
 
-    @Test(description = "Count of transfers on the Transfers page")
-    public void transfersPageCountOfTransfers(){
-        new HomePage(driver).openPage().putIntoSearchForm("Мультиварка").searchButtonClick();
-//        Assert.assertEquals(actualCountOfTransfers,10, "Found no 10 elements!");
+    @Test(priority = 1)
+    public void searchAndFilters(){
+        List actual = new HomePage(driver).openPage().putIntoSearchForm("Мультиварка").searchButtonClick()
+                .setMaxPriceSlider("5000").setMinPriceSlider("4000").clickToApplyFilters().getSearchResults();
+        Assert.assertEquals(actual.size(), 11);
     }
+
+    @Test(priority = 1)
+    public void checkSupportFormEmptyRequest(){
+        new HomePage(driver).openPage().clickSubscribeButton();
+        Assert.assertTrue(driver.findElement(By.xpath("//div[@class='form-field input-field error']")).isDisplayed());
+    }
+
+    @Test(priority = 2)
+    public void check(){
+        new HomePage(driver).openPage().putIntoSearchForm("Motorola").searchButtonClick()
+                .setOnlyAvailable().clickToResetFilters();
+/    }
 
     @AfterMethod(alwaysRun = true)
     public void closeBrowser() throws InterruptedException {
-        Thread.sleep(5000);
+        Thread.sleep(10000);
         driver.quit();
         driver=null;
     }
