@@ -80,8 +80,4 @@ public final class SearchPage extends AbstractPage{
     public List getSearchResults() {
         return driver.findElements(By.xpath("//div[@class='prod-cart height']"));
     }
-
-    private void waitFor(WebElement element) {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(element));
-    }
 }

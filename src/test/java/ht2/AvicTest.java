@@ -3,15 +3,21 @@ package ht2;
 import ht2.pages.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.math.BigDecimal;
+import java.time.Duration;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 
 public class AvicTest {
     private WebDriver driver;
@@ -45,9 +51,24 @@ public class AvicTest {
         Assert.assertFalse(actual.size()>0); //size must be 0
     }
 
+    @Test(priority = 1)
+    public void FindProductAndAddToCart(){
+        new HomePage(driver).openPage();
+        for (int i = 0; i < 3; i++) {
+            new HomePage(driver).buyProductOnMainPage(i).clickToCloseCart();
+        }
+        new HomePage(driver).clickCartButton().addCountInCart(0);
+        new HomePage(driver).addCountInCart(1);
+        Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17599 * 2 + 1159 * 2 + 5699);
+    }
+
     @AfterMethod(alwaysRun = true)
-    public void closeBrowser() throws InterruptedException {
-        Thread.sleep(10000);
+    public void closeBrowser(){
+        try {
+            Thread.sleep(2000); //временно
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
         driver.quit();
         driver=null;
     }
