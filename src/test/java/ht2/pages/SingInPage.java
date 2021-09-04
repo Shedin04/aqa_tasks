@@ -27,6 +27,9 @@ public class SingInPage extends AbstractPage{
     @FindBy(xpath = "//button[@class='fancybox-button fancybox-close-small']")
     private WebElement cancelForgetPasswordButton;
 
+    @FindBy(xpath = "//div[@class='modal-middle']//input[@name='login']")
+    private WebElement resetPasswordForm;
+
     public SingInPage(WebDriver driver) {
         super(driver);
     }
@@ -69,6 +72,12 @@ public class SingInPage extends AbstractPage{
     public SingInPage clickCancelForgetPasswordButton(){
         waitFor(cancelForgetPasswordButton);
         cancelForgetPasswordButton.click();
+        return this;
+    }
+
+    public SingInPage enterInResetPassword(String text){
+        waitFor(resetPasswordForm);
+        resetPasswordForm.sendKeys(text);
         return this;
     }
 

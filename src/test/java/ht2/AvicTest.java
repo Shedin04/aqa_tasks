@@ -62,10 +62,11 @@ public class AvicTest {
         Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17599 * 2 + 1159 * 2 + 5699);
     }
 
-    @Test(priority = 2)
+    @Test(priority = 0)
     public void checkProfilePage(){
         new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
                 .clickRememberMeFlag().clickRememberMeFlag().clickForgetPasswordButton().clickCancelForgetPasswordButton().enterButton();
+        Assert.assertTrue(driver.findElement(By.xpath("//div[@id='modalAlert']//div[@class='modal-middle']/div/div")).getText().equals("Неверные данные авторизации."));
     }
 
     @AfterMethod(alwaysRun = true)
