@@ -102,10 +102,10 @@ public final class HomePage extends AbstractPage {
     }
 
     //Links
-    public SignInPage clickProfileButton(){
+    public ProfilePage clickProfileButton(){
         waitFor(profileButton);
         profileButton.click();
-        return new SignInPage(driver);
+        return new ProfilePage(driver);
     }
 
     //Cart operations
@@ -159,6 +159,4 @@ public final class HomePage extends AbstractPage {
         waitFor(resultOfSpamSubscribe);
         return resultOfSpamSubscribe.getText();
     }
-
-    ////
 }

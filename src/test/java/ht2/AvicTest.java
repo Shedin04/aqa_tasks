@@ -10,7 +10,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 public class AvicTest {
     private WebDriver driver;
@@ -60,7 +59,7 @@ public class AvicTest {
 
     @Test(priority = 1, description = "Check reset password form with correct data")
     public void checkCorrectResetPassword(){
-        new SignInPage(driver).openPage().clickForgetPasswordButton()
+        new ProfilePage(driver).openPage().clickForgetPasswordButton()
                 .enterInResetPassword("380999999999")
                 .clickGetNewPasswordButton();
         Assert.assertTrue(driver.findElement(By.xpath("//div[contains(.,'Успешно')]")).isDisplayed());
@@ -69,7 +68,7 @@ public class AvicTest {
     @Test(priority = 2, description = "Check reset password form with incorrect data")
     public void checkIncorrectPassword(){
         String actual = null;
-        new SignInPage(driver).openPage().clickForgetPasswordButton()
+        new ProfilePage(driver).openPage().clickForgetPasswordButton()
                 .enterInResetPassword("test")
                 .clickGetNewPasswordButton();
         try {
@@ -78,6 +77,23 @@ public class AvicTest {
             actual = e.getMessage();
         }
         Assert.assertFalse(actual.equals(null));
+    }
+
+    @Test(priority = 1, description = "Check Sign Up")
+    public void checkSignUp(){
+        String result = null;
+        new ProfilePage(driver).openPage().clickToStayConstantUser().clickToEnterLikeClient()
+                .clickToStayConstantUser().enterInPhoneForm("0999999999")
+                .enterInEMailForm("temp@gmail.com")
+                .enterInFirstPasswordForm("123456")
+                .enterInSecondPasswordForm("123457")
+                .clickSignUpButton();
+                try {
+                    driver.findElement(By.xpath("//div[@data-error='Пароли не совпадают']"));
+                } catch (Exception e){
+                    result = e.getMessage();
+                }
+        Assert.assertNull(result);
     }
 
     //Spam form

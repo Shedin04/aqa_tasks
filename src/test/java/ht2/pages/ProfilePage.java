@@ -4,7 +4,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class SignInPage extends AbstractPage{
+public class ProfilePage extends AbstractPage{
 
     private static final String SIGNINPAGE_URL = "https://avic.ua/sign-in";
 
@@ -32,120 +32,120 @@ public class SignInPage extends AbstractPage{
     @FindBy(xpath = "//div[@class='modal-middle']//input[@name='login']")
     private WebElement resetPasswordForm;
 
-    @FindBy(xpath = "//a[@class='btn-offers]")
+    @FindBy(xpath = "//a[@class='btn-offers']")
     private WebElement enterLikeButton;
 
-    @FindBy(xpath = "//div[@class='form-field input-field flex']//[input[@name='phone']")
+    @FindBy(xpath = "//div[@class='sign-holder clearfix']//input[@name='phone']")
     private WebElement inputPhoneForm;
 
-    @FindBy(xpath = "//div[@class='form-field input-field flex']//[input[@name='email']")
+    @FindBy(xpath = "//div[@class='sign-holder clearfix']//input[@name='email']")
     private WebElement inputEmailForm;
 
-    @FindBy(xpath = "//div[@class='form-field input-field flex']//[input[@name='password']")
+    @FindBy(xpath = "//div[@class='form-field input-field flex']//input[@name='password']")
     private WebElement inputFirstPasswordForm;
 
-    @FindBy(xpath = "//input[@class='validate password_1 show-password']")
+    @FindBy(xpath = "//div[@class='form-field input-field input-field-pass flex']//input[@name='password']")
     private WebElement inputSecondPasswordForm;
 
     @FindBy(xpath = "//button[contains(.,'код')]")
     private WebElement toSignUp;
 
-    public SignInPage(WebDriver driver) {
+    public ProfilePage(WebDriver driver) {
         super(driver);
     }
 
     @Override
-    public SignInPage openPage() {
+    public ProfilePage openPage() {
         driver.get(SIGNINPAGE_URL);
         waitFor(loginForm);
         return this;
     }
 
-    public SignInPage putInLoginForm(String text){
+    public ProfilePage putInLoginForm(String text){
         waitFor(loginForm);
         loginForm.sendKeys(text);
         return this;
     }
 
-    public SignInPage putInPasswordForm(String text){
+    public ProfilePage putInPasswordForm(String text){
         waitFor(passwordForm);
         passwordForm.sendKeys(text);
         return this;
     }
 
-    public SignInPage clickRememberMeFlag(){
+    public ProfilePage clickRememberMeFlag(){
         waitFor(rememberMeFlag);
         rememberMeFlag.click();
         return this;
     }
 
-    public SignInPage enterButton(){
+    public ProfilePage enterButton(){
         waitFor(enterButton);
         enterButton.click();
         return this;
     }
 
-    public SignInPage clickForgetPasswordButton(){
+    public ProfilePage clickForgetPasswordButton(){
         waitFor(forgetPasswordButton);
         forgetPasswordButton.click();
         return this;
     }
 
-    public SignInPage clickCancelForgetPasswordButton(){
+    public ProfilePage clickCancelForgetPasswordButton(){
         waitFor(cancelForgetPasswordButton);
         cancelForgetPasswordButton.click();
         return this;
     }
 
-    public SignInPage enterInResetPassword(String text){
+    public ProfilePage enterInResetPassword(String text){
         waitFor(resetPasswordForm);
         resetPasswordForm.sendKeys(text);
         return this;
     }
 
-    public SignInPage clickGetNewPasswordButton(){
+    public ProfilePage clickGetNewPasswordButton(){
         waitFor(resetPasswordButtonInGetNewPassword);
         resetPasswordButtonInGetNewPassword.click();
         return this;
     }
 
-    public SignInPage clickToStayConstantUser(){
+    public ProfilePage clickToStayConstantUser(){
         waitFor(enterLikeButton);
         enterLikeButton.click();
         return this;
     }
 
-    public SignInPage clickToEnterLikeClient(){
+    public ProfilePage clickToEnterLikeClient(){
         waitFor(enterLikeButton);
         enterLikeButton.click();
         return this;
     }
 
-    public SignInPage enterInPhoneForm(String text){
+    public ProfilePage enterInPhoneForm(String text){
         waitFor(inputPhoneForm);
         inputPhoneForm.sendKeys(text);
         return this;
     }
 
-    public SignInPage enterInEMailForm(String text){
+    public ProfilePage enterInEMailForm(String text){
         waitFor(inputEmailForm);
         inputEmailForm.sendKeys(text);
         return this;
     }
 
-    public SignInPage enterInFirstPasswordForm(String text){
+    public ProfilePage enterInFirstPasswordForm(String text){
         waitFor(inputFirstPasswordForm);
         inputFirstPasswordForm.sendKeys(text);
         return this;
     }
 
-    public SignInPage enterInSecondPasswordForm(String text){
+    public ProfilePage enterInSecondPasswordForm(String text){
         waitFor(inputSecondPasswordForm);
         inputSecondPasswordForm.sendKeys(text);
         return this;
     }
 
-    public SignInPage clickSignUpButton(){
+    public ProfilePage clickSignUpButton(){
         waitFor(toSignUp);
         toSignUp.click();
         return this;
