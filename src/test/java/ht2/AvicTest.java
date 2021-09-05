@@ -23,6 +23,7 @@ public class AvicTest {
         driver = new ChromeDriver(options);
     }
 
+    //Search and cart
     @Test(priority = 1, description = "Check how search and filters work 1")
     public void searchAndFilterByPrice(){
         List actual = new HomePage(driver).openPage().putIntoSearchForm("Мультиварка").searchButtonClick()
@@ -37,6 +38,7 @@ public class AvicTest {
         Assert.assertFalse(actual.size()>0); //size must be 0
     }
 
+    //Main page
     @Test(priority = 0, description = "Find a product on the homepage and add it to cart. Check the buttons in the cart and the total amount")
     public void FindProductAndAddToCart(){
         new HomePage(driver).openPage();
@@ -48,6 +50,7 @@ public class AvicTest {
         Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17593 * 2 + 1159 * 2 + 5699);
     }
 
+    //Profile
     @Test(priority = 0, description = "Check login to the profile with incorrect data")
     public void checkProfilePage(){
         new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
@@ -55,6 +58,7 @@ public class AvicTest {
         Assert.assertTrue(driver.findElement(By.xpath("//div[@id='modalAlert']//div[@class='modal-middle']/div/div")).getText().equals("Неверные данные авторизации."));
     }
 
+    //Spam form
     @Test(priority = 1, description = "Check spam-subscribe form with correct request")
     public void checkSpamForm(){
         new HomePage(driver).openPage().inputNameInSpamForm("Name").inputEmailInSpamForm("testmail@gmail.com").clickToSubscribeOnSpam();
