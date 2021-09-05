@@ -21,8 +21,8 @@ public final class HomePage extends AbstractPage {
     private WebElement searchButton;
 
     //News
-    @FindBy(xpath = "//div[@class='articles']//a[@class='article-box-parent']")
-    private WebElement articleBox;
+    @FindBy(xpath = "//div[@id='tab2000']/div[@class='articles']/div/div")
+    private List<WebElement> articleBox;
 
     //Links
     @FindBy(xpath = "//div[@class='header-bottom__right flex-wrap middle-xs end-xs']/a[1]")
@@ -72,6 +72,11 @@ public final class HomePage extends AbstractPage {
         waitFor(mainPageBuyProducts.get(0));
         mainPageBuyProducts.get(number).click();
         return this;
+    }
+
+    public List checkBanners(){
+        waitFor(articleBox.get(0));
+        return articleBox;
     }
 
     //Search

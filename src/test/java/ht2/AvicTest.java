@@ -31,14 +31,6 @@ public class AvicTest {
         Assert.assertEquals(actual.size(), 11);
     }
 
-    @Test(priority = 1, description = "Check how search and filters work 2")
-    public void checkColumnRightFilters(){
-        List actual = new HomePage(driver).openPage().putIntoSearchForm("Motorola").searchButtonClick()
-                .setOnlyAvailable().clickToResetFilters().setFastDelivery().getSearchResults();
-        Assert.assertFalse(actual.size()>0); //size must be 0
-    }
-
-    //Main page
     @Test(priority = 0, description = "Find a product on the homepage and add it to cart. Check the buttons in the cart and the total amount")
     public void FindProductAndAddToCart(){
         new HomePage(driver).openPage();
@@ -48,6 +40,13 @@ public class AvicTest {
         new HomePage(driver).clickCartButton().addCountInCart(0);
         new HomePage(driver).addCountInCart(1);
         Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17593 * 2 + 1159 * 2 + 5699);
+    }
+
+    @Test(priority = 1, description = "Check how search and filters work 2")
+    public void checkColumnRightFilters(){
+        List actual = new HomePage(driver).openPage().putIntoSearchForm("Motorola").searchButtonClick()
+                .setOnlyAvailable().clickToResetFilters().setFastDelivery().getSearchResults();
+        Assert.assertFalse(actual.size()>0); //size must be 0
     }
 
     //Profile
@@ -69,6 +68,12 @@ public class AvicTest {
     public void checkSpamFormWithoutRequest(){
         new HomePage(driver).openPage().clickToSubscribeOnSpam();
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='form-field input-field error']")).isDisplayed());
+    }
+
+    //News banners
+    @Test(priority = 3, description = "Check count of banners on the home page")
+    public void checkNewsBanners(){
+        Assert.assertEquals(new HomePage(driver).openPage().checkBanners().size(),4);
     }
 
     @AfterMethod(alwaysRun = true)
