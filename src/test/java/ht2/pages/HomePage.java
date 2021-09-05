@@ -42,10 +42,10 @@ public final class HomePage extends AbstractPage {
     private WebElement totalToPay;
 
     //Spam field
-    @FindBy(xpath = "//div[@class='form-field input-field error']/input")
+    @FindBy(xpath = "//div[@class='form-field input-field']/input[@placeholder='Ваше имя']")
     private WebElement yourNameForm;
 
-    @FindBy(xpath = "") //ADD
+    @FindBy(xpath = "//div[@class='form-field input-field']/input[@placeholder='Ваш email']") //ADD
     private WebElement yourEmailForm;
 
     @FindBy(xpath = "//div[@class='subscribe-btn']/button[@type='submit']")
@@ -66,7 +66,6 @@ public final class HomePage extends AbstractPage {
         waitFor(searchForm);
         return this;
     }
-
 
     //Main page
     public HomePage buyProductOnMainPage(int number){
@@ -123,7 +122,7 @@ public final class HomePage extends AbstractPage {
         return Integer.valueOf(totalToPay.getText().replaceAll(" грн",""));
     }
 
-    //Subscribe on spam
+    //Subscribe on spam form
     public HomePage inputNameInSpamForm(String text){
         waitFor(yourNameForm);
         yourNameForm.sendKeys(text);
