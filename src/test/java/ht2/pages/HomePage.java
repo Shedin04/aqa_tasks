@@ -24,6 +24,9 @@ public final class HomePage extends AbstractPage {
     @FindBy(xpath = "//div[@id='tab2000']/div[@class='articles']/div/div")
     private List<WebElement> articleBox;
 
+    @FindBy(xpath = "//div[@id='tab2000']/div[@class='articles']/div/div/a")
+    private List<WebElement> buttonOfBanner;
+
     //Links
     @FindBy(xpath = "//div[@class='header-bottom__right flex-wrap middle-xs end-xs']/a[1]")
     private WebElement profileButton;
@@ -77,6 +80,12 @@ public final class HomePage extends AbstractPage {
     public List checkBanners(){
         waitFor(articleBox.get(0));
         return articleBox;
+    }
+
+    public HomePage clickOnTheBanner(int number){
+        waitFor(buttonOfBanner.get(number));
+        buttonOfBanner.get(number).click();
+        return this; //"Articles" page in future
     }
 
     //Search
