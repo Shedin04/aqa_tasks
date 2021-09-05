@@ -1,41 +1,34 @@
 package ht2.pages;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.math.BigDecimal;
-import java.time.Duration;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
-
 
 public final class HomePage extends AbstractPage {
 
     private static final String HOMEPAGE_URL = "https://avic.ua/";
 
+    //Main page
+    @FindBy(xpath = "//a[@class='prod-cart__buy']")
+    private List<WebElement> mainPageBuyProducts;
+
+    //Search
     @FindBy(id = "input_search")
     private WebElement searchForm;
 
     @FindBy(xpath = "//button[@class='button-reset search-btn']")
     private WebElement searchButton;
 
-    @FindBy(xpath = "//a[@class='prod-cart__buy']")
-    private List<WebElement> mainPageBuyProducts;
-
+    //News
     @FindBy(xpath = "//div[@class='articles']//a[@class='article-box-parent']")
     private WebElement articleBox;
 
-    @FindBy(xpath = "//div[@class='subscribe-btn']/button")
-    private WebElement subscribeButton;
-
+    //Links
     @FindBy(xpath = "//div[@class='header-bottom__right flex-wrap middle-xs end-xs']/a[1]")
     private WebElement profileButton;
 
+    //Cart
     @FindBy(xpath = "//a[@href='#']//div[@class='header-bottom__right-icon']/i")
     private WebElement cartButton;
 
@@ -48,6 +41,21 @@ public final class HomePage extends AbstractPage {
     @FindBy(xpath = "//div[@class='item-total']/span[contains(.,'грн')]")
     private WebElement totalToPay;
 
+    //Spam field
+    @FindBy(xpath = "//div[@class='form-field input-field error']/input")
+    private WebElement yourNameForm;
+
+    @FindBy(xpath = "") //ADD
+    private WebElement yourEmailForm;
+
+    @FindBy(xpath = "//div[@class='subscribe-btn']/button[@type='submit']")
+    private WebElement subscribeButton;
+
+    @FindBy(xpath = "//div[@class='fancybox-stage']//div[@class='row']/div")
+    private WebElement resultOfSpamSubscribe;
+
+    ////
+
     public HomePage(WebDriver driver) {
         super(driver);
     }
@@ -59,15 +67,18 @@ public final class HomePage extends AbstractPage {
         return this;
     }
 
-    public HomePage putIntoSearchForm(String text) {
-        waitFor(searchButton);
-        searchForm.sendKeys(text);
-        return this;
-    }
 
+    //Main page
     public HomePage buyProductOnMainPage(int number){
         waitFor(mainPageBuyProducts.get(0));
         mainPageBuyProducts.get(number).click();
+        return this;
+    }
+
+    //Search
+    public HomePage putIntoSearchForm(String text) {
+        waitFor(searchButton);
+        searchForm.sendKeys(text);
         return this;
     }
 
@@ -77,18 +88,14 @@ public final class HomePage extends AbstractPage {
         return new SearchPage(driver);
     }
 
-    public HomePage clickSubscribeButton(){
-        waitFor(searchButton);
-        subscribeButton.click();
-        return this;
-    }
-
-    public SingInPage clickProfileButton(){
-        waitFor(cartButton);
+    //Links
+    public SignInPage clickProfileButton(){
+        waitFor(profileButton);
         profileButton.click();
-        return new SingInPage(driver);
+        return new SignInPage(driver);
     }
 
+    //Cart operations
     public HomePage clickCartButton(){
         waitFor(cartButton);
         cartButton.click();
@@ -115,4 +122,30 @@ public final class HomePage extends AbstractPage {
         }
         return Integer.valueOf(totalToPay.getText().replaceAll(" грн",""));
     }
+
+    //Subscribe on spam
+    public HomePage inputNameInSpamForm(String text){
+        waitFor(yourNameForm);
+        yourNameForm.sendKeys(text);
+        return this;
+    }
+
+    public HomePage inputEmailInSpamForm(String text){
+        waitFor(yourEmailForm);
+        yourEmailForm.sendKeys(text);
+        return this;
+    }
+
+    public HomePage clickToSubscribeOnSpam(){
+        waitFor(subscribeButton);
+        subscribeButton.click();
+        return this;
+    }
+
+    public String checkResultOfSpamSubscribe(){
+        waitFor(resultOfSpamSubscribe);
+        return resultOfSpamSubscribe.getText();
+    }
+
+    ////
 }

@@ -40,7 +40,7 @@ public class AvicTest {
 
     @Test(priority = 1)
     public void checkSupportFormWithEmptyRequest(){
-        new HomePage(driver).openPage().clickSubscribeButton();
+        new HomePage(driver).openPage().clickToSubscribeOnSpam();
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='form-field input-field error']")).isDisplayed());
     }
 
@@ -59,7 +59,7 @@ public class AvicTest {
         }
         new HomePage(driver).clickCartButton().addCountInCart(0);
         new HomePage(driver).addCountInCart(1);
-        Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17599 * 2 + 1159 * 2 + 5699);
+        Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17593 * 2 + 1159 * 2 + 5699);
     }
 
     @Test(priority = 0)
@@ -67,6 +67,12 @@ public class AvicTest {
         new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
                 .clickRememberMeFlag().clickRememberMeFlag().clickForgetPasswordButton().clickCancelForgetPasswordButton().enterButton();
         Assert.assertTrue(driver.findElement(By.xpath("//div[@id='modalAlert']//div[@class='modal-middle']/div/div")).getText().equals("Неверные данные авторизации."));
+    }
+
+    @Test(priority = 2, description = "Check subscribe on spam form")
+    public void checkSpamForm(){
+        new HomePage(driver).openPage().inputNameInSpamForm("Name").inputEmailInSpamForm("testmail@gmail.com").clickToSubscribeOnSpam();
+        Assert.assertTrue(new HomePage(driver).checkResultOfSpamSubscribe().contains("Заявка была отправлена"));
     }
 
     @AfterMethod(alwaysRun = true)
