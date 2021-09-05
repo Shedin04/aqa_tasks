@@ -10,6 +10,7 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class AvicTest {
     private WebDriver driver;
@@ -55,6 +56,28 @@ public class AvicTest {
         new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
                 .clickRememberMeFlag().clickRememberMeFlag().clickForgetPasswordButton().clickCancelForgetPasswordButton().enterButton();
         Assert.assertTrue(driver.findElement(By.xpath("//div[@id='modalAlert']//div[@class='modal-middle']/div/div")).getText().equals("Неверные данные авторизации."));
+    }
+
+    @Test(priority = 1, description = "Check reset password form with correct data")
+    public void checkCorrectResetPassword(){
+        new SignInPage(driver).openPage().clickForgetPasswordButton()
+                .enterInResetPassword("380999999999")
+                .clickGetNewPasswordButton();
+        Assert.assertTrue(driver.findElement(By.xpath("//div[contains(.,'Успешно')]")).isDisplayed());
+    }
+
+    @Test(priority = 2, description = "Check reset password form with incorrect data")
+    public void checkIncorrectPassword(){
+        String actual = null;
+        new SignInPage(driver).openPage().clickForgetPasswordButton()
+                .enterInResetPassword("test")
+                .clickGetNewPasswordButton();
+        try {
+            driver.findElement(By.xpath("//div[contains(.,'Успешно')]"));
+        } catch (Exception e){
+            actual = e.getMessage();
+        }
+        Assert.assertFalse(actual.equals(null));
     }
 
     //Spam form

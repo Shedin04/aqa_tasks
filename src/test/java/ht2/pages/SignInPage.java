@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 
 public class SignInPage extends AbstractPage{
 
+    private static final String SIGNINPAGE_URL = "https://avic.ua/sign-in";
+
     @FindBy(xpath = "//div[@class='sign-holder clearfix']//input[@name='login']")
     private WebElement loginForm;
 
@@ -22,7 +24,7 @@ public class SignInPage extends AbstractPage{
     private WebElement forgetPasswordButton;
 
     @FindBy(xpath = "//div[@class='form-field input-field']/button[@class='button-reset main-btn main-btn--green submit']")
-    private WebElement resetPasswordButton;
+    private WebElement resetPasswordButtonInGetNewPassword;
 
     @FindBy(xpath = "//button[@class='fancybox-button fancybox-close-small']")
     private WebElement cancelForgetPasswordButton;
@@ -53,7 +55,9 @@ public class SignInPage extends AbstractPage{
     }
 
     @Override
-    protected AbstractPage openPage() {
+    public SignInPage openPage() {
+        driver.get(SIGNINPAGE_URL);
+        waitFor(loginForm);
         return this;
     }
 
@@ -93,15 +97,15 @@ public class SignInPage extends AbstractPage{
         return this;
     }
 
-    public SignInPage clickToResetPassword(){
-        waitFor(resetPasswordButton);
-        resetPasswordButton.click();
-        return this;
-    }
-
     public SignInPage enterInResetPassword(String text){
         waitFor(resetPasswordForm);
         resetPasswordForm.sendKeys(text);
+        return this;
+    }
+
+    public SignInPage clickGetNewPasswordButton(){
+        waitFor(resetPasswordButtonInGetNewPassword);
+        resetPasswordButtonInGetNewPassword.click();
         return this;
     }
 
