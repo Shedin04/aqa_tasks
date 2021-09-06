@@ -3,9 +3,13 @@ package ht2.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
+import java.util.function.Function;
 
 public final class HomePage extends AbstractPage {
 
@@ -132,13 +136,14 @@ public final class HomePage extends AbstractPage {
         return this;
     }
 
-    public int getTotalToPay(){
+    public boolean getTotalToPay(int result){
         try {
-            Thread.sleep(1000); // пока не получается заменить на другой wait (не успевает все посчитать)
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            new FluentWait<>(Integer.valueOf(totalToPay.getText().replaceAll(" грн", ""))
+                    .equals(result)).withTimeout(Duration.ofSeconds(10));
+            return true;
+        } catch (Exception e) {
+            return false;
         }
-        return Integer.valueOf(totalToPay.getText().replaceAll(" грн",""));
     }
 
     //Subscribe on spam form

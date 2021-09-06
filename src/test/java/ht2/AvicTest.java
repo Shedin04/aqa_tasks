@@ -38,7 +38,7 @@ public class AvicTest {
         }
         new HomePage(driver).clickCartButton().addCountInCart(0);
         new HomePage(driver).addCountInCart(1);
-        Assert.assertEquals(new HomePage(driver).getTotalToPay(), 1159 * 2 + 5649 * 2 + 4899);
+        Assert.assertTrue(new HomePage(driver).getTotalToPay(1159 * 2 + 5649 * 2 + 4899));
     }
 
     @Test(priority = 1, description = "Check how search and filters work 2")
