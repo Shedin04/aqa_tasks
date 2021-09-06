@@ -39,7 +39,7 @@ public class AvicTest {
         }
         new HomePage(driver).clickCartButton().addCountInCart(0);
         new HomePage(driver).addCountInCart(1);
-        Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17593 * 2 + 1159 * 2 + 5699);
+        Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17599 * 2 + 1159 * 2 + 5649);
     }
 
     @Test(priority = 1, description = "Check how search and filters work 2")
