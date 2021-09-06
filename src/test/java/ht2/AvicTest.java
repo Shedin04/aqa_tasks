@@ -1,7 +1,6 @@
 package ht2;
 
 import ht2.pages.*;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -39,7 +38,7 @@ public class AvicTest {
         }
         new HomePage(driver).clickCartButton().addCountInCart(0);
         new HomePage(driver).addCountInCart(1);
-        Assert.assertEquals(new HomePage(driver).getTotalToPay(), 17599 * 2 + 1159 * 2 + 5649);
+        Assert.assertEquals(new HomePage(driver).getTotalToPay(), 1159 * 2 + 5649 * 2 + 4899);
     }
 
     @Test(priority = 1, description = "Check how search and filters work 2")
@@ -93,7 +92,7 @@ public class AvicTest {
 
     @Test(priority = 2, description = "Check spam-subscribe form without request")
     public void checkSpamFormWithoutRequest(){
-        Assert.assertTrue(new HomePage(driver).openPage().clickToSubscribeOnSpam().checkErrorOfSpam());
+        Assert.assertTrue(new HomePage(driver).openPage().inputEmailInSpamForm("name").clickToSubscribeOnSpam().checkErrorOfSpam());
     }
 
     //News banners

@@ -3,6 +3,8 @@ package ht2.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.util.List;
 
 public final class HomePage extends AbstractPage {
@@ -51,7 +53,7 @@ public final class HomePage extends AbstractPage {
     @FindBy(xpath = "//div[@class='form-field input-field']/input[@placeholder='Ваш email']") //ADD
     private WebElement yourEmailForm;
 
-    @FindBy(xpath = "//div[@class='subscribe-btn']/button[@type='submit']")
+    @FindBy(xpath = "//div[@class='subscribe__block flex-wrap middle-xs between-xs']//button")
     private WebElement subscribeButton;
 
     @FindBy(xpath = "//div[@class='form-field input-field error']")
@@ -153,6 +155,7 @@ public final class HomePage extends AbstractPage {
     }
 
     public HomePage clickToSubscribeOnSpam(){
+        waitFor(yourNameForm);
         waitFor(subscribeButton);
         subscribeButton.click();
         return this;
@@ -164,7 +167,6 @@ public final class HomePage extends AbstractPage {
     }
 
     public boolean checkErrorOfSpam(){
-        waitFor(errorOfSpam);
         return errorOfSpam.isDisplayed();
     }
 }
