@@ -52,48 +52,36 @@ public class AvicTest {
     //Profile
     @Test(priority = 0, description = "Check login to the profile with incorrect data")
     public void checkProfilePage(){
-        new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
-                .clickRememberMeFlag().clickRememberMeFlag().clickForgetPasswordButton().clickCancelForgetPasswordButton().enterButton();
-        Assert.assertTrue(driver.findElement(By.xpath("//div[@id='modalAlert']//div[@class='modal-middle']/div/div")).getText().equals("Неверные данные авторизации."));
+        Assert.assertTrue(new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
+                .clickRememberMeFlag().clickRememberMeFlag().clickForgetPasswordButton().clickCancelForgetPasswordButton().enterButton()
+                .checkResultOfLogin().getText().equals("Неверные данные авторизации."));
     }
 
     @Test(priority = 1, description = "Check reset password form with correct data")
     public void checkCorrectResetPassword(){
-        new ProfilePage(driver).openPage().clickForgetPasswordButton()
+        Assert.assertTrue(new ProfilePage(driver).openPage().clickForgetPasswordButton()
                 .enterInResetPassword("380999999999")
-                .clickGetNewPasswordButton();
-        Assert.assertTrue(driver.findElement(By.xpath("//div[contains(.,'Успешно')]")).isDisplayed());
+                .clickGetNewPasswordButton()
+                .checkCorrectPasswordReset());
     }
 
     @Test(priority = 2, description = "Check reset password form with incorrect data")
     public void checkIncorrectPassword(){
-        String actual = null;
-        new ProfilePage(driver).openPage().clickForgetPasswordButton()
+        Assert.assertFalse(new ProfilePage(driver).openPage().clickForgetPasswordButton()
                 .enterInResetPassword("test")
-                .clickGetNewPasswordButton();
-        try {
-            driver.findElement(By.xpath("//div[contains(.,'Успешно')]"));
-        } catch (Exception e){
-            actual = e.getMessage();
-        }
-        Assert.assertFalse(actual.equals(null));
+                .clickGetNewPasswordButton()
+                .checkCorrectPasswordReset());
     }
 
     @Test(priority = 1, description = "Check Sign Up")
     public void checkSignUp(){
-        String result = null;
-        new ProfilePage(driver).openPage().clickToStayConstantUser().clickToEnterLikeClient()
+        Assert.assertNull(new ProfilePage(driver).openPage().clickToStayConstantUser().clickToEnterLikeClient()
                 .clickToStayConstantUser().enterInPhoneForm("0999999999")
                 .enterInEMailForm("temp@gmail.com")
                 .enterInFirstPasswordForm("123456")
                 .enterInSecondPasswordForm("123457")
-                .clickSignUpButton();
-                try {
-                    driver.findElement(By.xpath("//div[@data-error='Пароли не совпадают']"));
-                } catch (Exception e){
-                    result = e.getMessage();
-                }
-        Assert.assertNull(result);
+                .clickSignUpButton()
+                .getPasswordsError());
     }
 
     //Spam form
@@ -105,8 +93,7 @@ public class AvicTest {
 
     @Test(priority = 2, description = "Check spam-subscribe form without request")
     public void checkSpamFormWithoutRequest(){
-        new HomePage(driver).openPage().clickToSubscribeOnSpam();
-        Assert.assertTrue(driver.findElement(By.xpath("//div[@class='form-field input-field error']")).isDisplayed());
+        Assert.assertTrue(new HomePage(driver).openPage().clickToSubscribeOnSpam().checkErrorOfSpam());
     }
 
     //News banners

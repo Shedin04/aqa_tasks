@@ -54,6 +54,9 @@ public final class HomePage extends AbstractPage {
     @FindBy(xpath = "//div[@class='subscribe-btn']/button[@type='submit']")
     private WebElement subscribeButton;
 
+    @FindBy(xpath = "//div[@class='form-field input-field error']")
+    private WebElement errorOfSpam;
+
     @FindBy(xpath = "//div[@class='fancybox-stage']//div[@class='row']/div")
     private WebElement resultOfSpamSubscribe;
 
@@ -158,5 +161,10 @@ public final class HomePage extends AbstractPage {
     public String checkResultOfSpamSubscribe(){
         waitFor(resultOfSpamSubscribe);
         return resultOfSpamSubscribe.getText();
+    }
+
+    public boolean checkErrorOfSpam(){
+        waitFor(errorOfSpam);
+        return errorOfSpam.isDisplayed();
     }
 }

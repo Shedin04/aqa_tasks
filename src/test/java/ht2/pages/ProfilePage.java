@@ -11,6 +11,9 @@ public class ProfilePage extends AbstractPage{
     @FindBy(xpath = "//div[@class='sign-holder clearfix']//input[@name='login']")
     private WebElement loginForm;
 
+    @FindBy(xpath = "//div[@id='modalAlert']//div[@class='modal-middle']/div/div")
+    private WebElement resultOfLogin;
+
     @FindBy(xpath = "//div[@class='sign-holder clearfix']//input[@name='password']")
     private WebElement passwordForm;
 
@@ -47,8 +50,14 @@ public class ProfilePage extends AbstractPage{
     @FindBy(xpath = "//div[@class='form-field input-field input-field-pass flex']//input[@name='password']")
     private WebElement inputSecondPasswordForm;
 
+    @FindBy(xpath = "//div[@data-error='Пароли не совпадают']")
+    private WebElement checkTwoPasswordError;
+
     @FindBy(xpath = "//button[contains(.,'код')]")
     private WebElement toSignUp;
+
+    @FindBy(xpath = "//div[contains(.,'Успешно')]")
+    private WebElement correctPasswordReset;
 
     public ProfilePage(WebDriver driver) {
         super(driver);
@@ -121,6 +130,11 @@ public class ProfilePage extends AbstractPage{
         return this;
     }
 
+    public WebElement checkResultOfLogin(){
+        waitFor(resultOfLogin);
+        return resultOfLogin;
+    }
+
     public ProfilePage enterInPhoneForm(String text){
         waitFor(inputPhoneForm);
         inputPhoneForm.sendKeys(text);
@@ -151,4 +165,22 @@ public class ProfilePage extends AbstractPage{
         return this;
     }
 
+    public String getPasswordsError(){
+        String result = null;
+        try {
+            checkTwoPasswordError.getText();
+        } catch (Exception e){
+            result = e.getMessage();
+        }
+        return result;
+    }
+
+    public boolean checkCorrectPasswordReset(){
+        try {
+            correctPasswordReset.getText();
+        } catch (Exception e) {
+            return false;
+        }
+            return correctPasswordReset.isDisplayed();
+    }
 }
