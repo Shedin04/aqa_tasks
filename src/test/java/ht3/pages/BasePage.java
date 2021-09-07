@@ -6,13 +6,15 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
 public abstract class BasePage {
     protected WebDriver driver;
-    protected final int WAIT_TIMEOUT_SECONDS = 10;
+    protected final int TIMEOUT = 10;
 
     //Head
     @FindBy(xpath = "//div[@class='navbar__wrap']/a")
@@ -116,11 +118,11 @@ public abstract class BasePage {
     }
 
     void waitFor(WebElement element) {
-        new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(element));
+        new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT)).until(ExpectedConditions.elementToBeClickable(element));
     }
 
     void waitAndClick(int number, List<WebElement> resultOfDrop) {
-        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(resultOfDrop));
+        new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT)).until(ExpectedConditions.visibilityOfAllElements(resultOfDrop));
         resultOfDrop.get(number).click();
     }
 }
