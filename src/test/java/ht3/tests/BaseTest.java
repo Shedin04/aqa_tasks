@@ -8,6 +8,7 @@ import org.testng.annotations.BeforeMethod;
 
 public abstract class BaseTest {
     protected WebDriver driver;
+    protected String result;
 
     @BeforeMethod(alwaysRun = true) // перед каждым методом открываем новый браузер
     public void browserSetup(){

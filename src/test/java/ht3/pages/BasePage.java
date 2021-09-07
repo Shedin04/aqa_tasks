@@ -119,4 +119,9 @@ public abstract class BasePage {
     void waitFor(WebElement element) {
         new WebDriverWait(driver, WAIT_TIMEOUT_SECONDS).until(ExpectedConditions.elementToBeClickable(element));
     }
+
+    void waitAndClick(int number, List<WebElement> resultOfDrop) {
+        new WebDriverWait(driver, 10).until(ExpectedConditions.visibilityOfAllElements(resultOfDrop));
+        resultOfDrop.get(number).click();
+    }
 }
