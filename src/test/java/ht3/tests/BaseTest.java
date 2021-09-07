@@ -21,7 +21,7 @@ public abstract class BaseTest {
     @AfterMethod(alwaysRun = true)
     public void closeBrowser(){
         try {
-            Thread.sleep(2000); //временно
+            Thread.sleep(4000); //временно
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
