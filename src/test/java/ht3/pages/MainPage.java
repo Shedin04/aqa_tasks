@@ -79,10 +79,19 @@ public final class MainPage extends BasePage {
 
     public MainPage selectDates(int dayDeparture, int monthDeparture, int dayArrival, int monthArrival){
         waitFor(tripStart);
-        tripStart.click();
         waitFor(activeDays.get(0));
-        activeDays.stream().filter(day -> day.getText().equals(String.valueOf(dayDeparture))).collect(Collectors.toList()).get(monthDeparture-1).click();
-        activeDays.stream().filter(day -> day.getText().equals(String.valueOf(dayArrival))).collect(Collectors.toList()).get(monthArrival-1).click();
+        List<WebElement> departures = activeDays.stream().filter(day -> day.getText().length()>2)
+                .filter(day -> day.getText().substring(0, day.getText().indexOf("\n"))
+                .equals(String.valueOf(dayDeparture))).collect(Collectors.toList());
+        if (departures.size() == 1) departures.get(0).click();
+        else departures.get(monthDeparture - 1).click();
+
+        List<WebElement> arrivals = activeDays.stream().filter(day -> day.getText().length()>2)
+        .filter(day -> day.getText().substring(0, day.getText().indexOf("\n"))
+        .equals(String.valueOf(dayArrival))).collect(Collectors.toList());
+        if (arrivals.size() == 0) System.err.println("[ERROR]: Not available date");
+        else if (arrivals.size() == 1) arrivals.get(0).click();
+        else arrivals.get(monthArrival - 1).click();
         return this;
     }
 

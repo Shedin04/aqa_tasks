@@ -40,7 +40,13 @@ public class MainPageTests extends BaseTest {
 
     @Test(priority = 1, description = "Check that dates are selectable")
     public void checkDates(){
-        result = new MainPage(driver).openPage().selectDates(21,1,9,2).getDates();
+        result = new MainPage(driver).openPage().selectDeparture("Хар",0).selectDates(21,1,9,2).getDates();
         Assert.assertTrue(result.equals("21 вересня, вт | 9 жовтня, сб") || result.equals("21 сентября, вт | 9 октября, сб"));
+    }
+
+    @Test(priority = 0, description = "Check the full cycle of ticket purchase")
+    public void checkPurchase(){
+        new MainPage(driver).openPage().selectDeparture("Бор", 0).selectArrival("Ла",2)
+                .selectDates(23, 1,8,2);
     }
 }
