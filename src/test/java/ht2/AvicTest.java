@@ -27,7 +27,7 @@ public class AvicTest {
     public void searchAndFilterByPrice(){
         List actual = new HomePage(driver).openPage().putIntoSearchForm("Мультиварка").searchButtonClick()
                 .setMaxPriceSlider("5000").setMinPriceSlider("4000").clickToApplyFilters().getSearchResults();
-        Assert.assertEquals(actual.size(), 11);
+        Assert.assertEquals(actual.size(), 12);
     }
 
     @Test(priority = 0, description = "Find a product on the homepage and add it to cart. Check the buttons in the cart and the total amount")
@@ -39,13 +39,6 @@ public class AvicTest {
         new HomePage(driver).clickCartButton().addCountInCart(0);
         new HomePage(driver).addCountInCart(1);
         Assert.assertTrue(new HomePage(driver).getTotalToPay(1159 * 2 + 5649 * 2 + 4899));
-    }
-
-    @Test(priority = 1, description = "Check how search and filters work 2")
-    public void checkColumnRightFilters(){
-        List actual = new HomePage(driver).openPage().putIntoSearchForm("Motorola").searchButtonClick()
-                .setOnlyAvailable().clickToResetFilters().setFastDelivery().getSearchResults();
-        Assert.assertFalse(actual.size()>0); //size must be 0
     }
 
     //Profile
