@@ -8,6 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -19,6 +20,12 @@ public class TicketsSearchPage extends BasePage{
     @FindBy(xpath = "//div[@class='product-list__item fade-enter-done']")
     private List<WebElement> foundContent;
 
+    @FindBy(xpath = "//div[@class='popular-filters__filter-tooltip']/button")
+    private List<WebElement> popularFiltersButton;
+
+    @FindBy(xpath = "//div[text()='Немає багажу' or text()='Нет багажа']")
+    private List<WebElement> withoutSuite;
+
     @Override
     protected BasePage openPage() {
         return this;
@@ -26,7 +33,7 @@ public class TicketsSearchPage extends BasePage{
 
     public String getIATA(){
         Map result = new HashMap();
-        waitContent();
+        waitContent(foundContent);
         List<String[]> temp = foundContent.stream().map(str -> str.getText().split("\\n")).collect(Collectors.toList());
         for (int i = 0; i < temp.get(0).length; i++) {
             if (temp.get(0)[i].length() == 3)
@@ -35,7 +42,17 @@ public class TicketsSearchPage extends BasePage{
         return (String) result.keySet().stream().sorted().collect(Collectors.joining(", "));
     }
 
-    private void waitContent(){
-        new WebDriverWait(driver,60).until(ExpectedConditions.visibilityOfAllElements(foundContent));
+    public TicketsSearchPage clickPopularFiltersButton(String nameOfFilter){
+        waitContent(popularFiltersButton);
+        popularFiltersButton.stream().filter(button -> button.getText().equals(nameOfFilter.toUpperCase(Locale.ROOT))).forEach(button -> button.click());
+        return this;
+    }
+
+    public int checkSuite(){
+        return withoutSuite.size();
+    }
+
+    private void waitContent(List<WebElement> elementList){
+        new WebDriverWait(driver,60).until(ExpectedConditions.visibilityOfAllElements(elementList));
     }
 }
