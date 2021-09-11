@@ -97,7 +97,7 @@ public class AvicTest {
     @Test(priority = 2, description = "Banner button click test")
     public void clickOnTheBanner(){
         new HomePage(driver).openPage().clickOnTheBanner(2);
-        Assert.assertEquals(driver.getTitle(), "Топ-9 видеокарт для майнинга, как подобрать карту для майнинга, как получить высокий хешрейт");
+        Assert.assertEquals(driver.getTitle(), "Планшет для учебы на удаленке: список лучших моделей – Купить в Киеве и Украине, по низкой цене – Интернет магазин Avic.ua");
     }
 
     @AfterMethod(alwaysRun = true)
