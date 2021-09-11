@@ -65,6 +65,7 @@ public final class MainPage extends BasePage {
     }
 
     public String getDeparture(){
+        waitFor(departureField);
         return departureField.getAttribute("value");
     }
 
@@ -78,6 +79,7 @@ public final class MainPage extends BasePage {
     }
 
     public String getArrival(){
+        waitFor(arrivalField);
         return arrivalField.getAttribute("value");
     }
 

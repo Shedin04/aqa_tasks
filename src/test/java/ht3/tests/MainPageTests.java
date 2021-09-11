@@ -35,7 +35,7 @@ public class MainPageTests extends BaseTest {
     @Test(priority = 1, description = "Check arrival field")
     public void checkArrival(){
         result = new MainPage(driver).openPage().selectArrival("Тур", 1).getArrival();
-        Assert.assertTrue(result.equals("Анталія") || result.equals("Анталия"));
+        Assert.assertTrue(result.equals("Анталія") || result.equals("Анталья"));
     }
 
     @Test(priority = 1, description = "Check that dates are selectable")
