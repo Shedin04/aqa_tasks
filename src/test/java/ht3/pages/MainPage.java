@@ -59,6 +59,7 @@ public final class MainPage extends BasePage {
         waitFor(departureField);
         departureField.click();
         departureField.clear();
+        departureField.clear();
         departureField.click();
         departureField.sendKeys(request);
         waitAndClick(number, resultOfDrop);

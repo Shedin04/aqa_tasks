@@ -26,6 +26,13 @@ public class TicketsSearchPage extends BasePage{
     @FindBy(xpath = "//div[text()='Немає багажу' or text()='Нет багажа']")
     private List<WebElement> withoutSuite;
 
+    @FindBy(xpath = "//div[@class='buy-button']//a[@data-test-element]")
+    private List<WebElement> buyTicketButtons;
+
+    //Gate
+    @FindBy(xpath = "//span[@data-testid]")
+    private WebElement redirectPageGate;
+
     @Override
     protected BasePage openPage() {
         return this;
@@ -48,8 +55,25 @@ public class TicketsSearchPage extends BasePage{
         return this;
     }
 
+    public TicketsSearchPage clickToBuyTicket(int number){
+        waitContent(buyTicketButtons);
+        try {
+            buyTicketButtons.get(number).click();
+        }catch (Exception e) {
+            System.err.println("[ERROR]: Incorrect number");
+        }
+        return this;
+    }
+
     public int checkSuite(){
         return withoutSuite.size();
+    }
+
+    public boolean checkGate(){
+        try {
+            waitFor(redirectPageGate);
+        } catch (Exception e){return false;}
+        return true;
     }
 
     private void waitContent(List<WebElement> elementList){

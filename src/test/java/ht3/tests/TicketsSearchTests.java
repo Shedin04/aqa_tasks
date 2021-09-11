@@ -16,9 +16,14 @@ public class TicketsSearchTests extends BaseTest{
                 .clickToFindTickets();
     }
 
-    @Test(description = "Check popular ticket filters")
+    @Test(priority = 2, description = "Check popular ticket filters")
     public void checkPopularFilters(){
         String buttonName = "без багажу";
         Assert.assertEquals(new TicketsSearchPage(driver).clickPopularFiltersButton(buttonName).checkSuite(), 2);
+    }
+
+    @Test(description = "Check the purchase of the required ticket")
+    public void checkBuyTicket(){
+        Assert.assertTrue(new TicketsSearchPage(driver).clickToBuyTicket(1).checkGate());
     }
 }
