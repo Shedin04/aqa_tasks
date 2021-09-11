@@ -57,6 +57,7 @@ public final class MainPage extends BasePage {
 
     public MainPage selectDeparture(String request, int number){
         waitFor(departureField);
+        departureField.click();
         departureField.clear();
         departureField.click();
         departureField.sendKeys(request);

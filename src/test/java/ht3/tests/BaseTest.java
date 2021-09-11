@@ -10,7 +10,7 @@ public abstract class BaseTest {
     protected WebDriver driver;
     protected String result;
 
-    @BeforeMethod(alwaysRun = true) // перед каждым методом открываем новый браузер
+    @BeforeMethod(alwaysRun = true)
     public void browserSetup(){
         System.setProperty("webdriver.chrome.driver","D:\\selenium drivers\\bin\\chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
@@ -19,10 +19,10 @@ public abstract class BaseTest {
         driver = new ChromeDriver(options);
     }
 
-    @AfterMethod(alwaysRun = true)
+    @AfterMethod(alwaysRun = true, description = "Thread.sleep для просмотра результатов тестов")
     public void closeBrowser(){
         try {
-            Thread.sleep(4000); //временно
+            Thread.sleep(4000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
