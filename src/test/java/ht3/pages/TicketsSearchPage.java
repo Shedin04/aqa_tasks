@@ -49,8 +49,8 @@ public class TicketsSearchPage extends BasePage{
     }
 
     public TicketsSearchPage clickCountOfStopsFiltersFlag(String nameOfFilter){
-        waitContent(foundContent);
         waitContent(flagsForSelectCountOfStops);
+        waitContent(countOfStops);
         flagsForSelectCountOfStops.stream().filter(button -> button.getText().equals(nameOfFilter)).forEach(WebElement::click);
         return this;
     }
@@ -66,6 +66,7 @@ public class TicketsSearchPage extends BasePage{
     }
 
     public int checkCountOfStops (){
+        waitContent(flagsForSelectCountOfStops);
         waitContent(countOfStops);
         return countOfStops.size();
     }

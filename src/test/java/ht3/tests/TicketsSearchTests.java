@@ -16,8 +16,8 @@ public class TicketsSearchTests extends BaseTest{
                 .clickToFindTickets();
     }
 
-    @Test(priority = 2, description = "Check popular ticket filters")
-    public void checkPopularFilters(){
+    @Test(priority = 2, description = "Check count of stops filters")
+    public void checkStopsFilters(){
         String buttonName = "2 пересадки";
         Assert.assertEquals(new TicketsSearchPage(driver).clickCountOfStopsFiltersFlag(buttonName).checkCountOfStops(), 2);
     }
