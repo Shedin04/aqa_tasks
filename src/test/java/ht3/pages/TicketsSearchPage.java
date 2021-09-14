@@ -66,7 +66,7 @@ public class TicketsSearchPage extends BasePage{
     }
 
     public int checkCountOfStops (){
-        waitContent(flagsForSelectCountOfStops);
+        waitContent(foundContent);
         waitContent(countOfStops);
         return countOfStops.size();
     }
