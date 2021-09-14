@@ -8,7 +8,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -20,11 +19,11 @@ public class TicketsSearchPage extends BasePage{
     @FindBy(xpath = "//div[@class='product-list__item fade-enter-done']")
     private List<WebElement> foundContent;
 
-    @FindBy(xpath = "//div[@class='popular-filters__filter-tooltip']/button")
-    private List<WebElement> popularFiltersButton;
+    @FindBy(xpath = "//div[@class='filter-group --is-open']//div[@class='filter-row checkbox-row --with-hover']/div[@data-test-element='text']")
+    private List<WebElement> flagsForSelectCountOfStops;
 
-    @FindBy(xpath = "//div[text()='Немає багажу' or text()='Нет багажа']")
-    private List<WebElement> withoutSuite;
+    @FindBy(xpath = "(//div[@class='segment-route__path'])[1]/div[@class='segment-route__stop']")
+    private List<WebElement> countOfStops;
 
     @FindBy(xpath = "//div[@class='buy-button']//a[@data-test-element]")
     private List<WebElement> buyTicketButtons;
@@ -39,19 +38,20 @@ public class TicketsSearchPage extends BasePage{
     }
 
     public String getIATA(){
-        Map result = new HashMap();
+        Map<String,String> result = new HashMap();
         waitContent(foundContent);
         List<String[]> temp = foundContent.stream().map(str -> str.getText().split("\\n")).collect(Collectors.toList());
         for (int i = 0; i < temp.get(0).length; i++) {
             if (temp.get(0)[i].length() == 3)
                 result.put(temp.get(0)[i].substring(0,3), "IATA");
         }
-        return (String) result.keySet().stream().sorted().collect(Collectors.joining(", "));
+        return result.keySet().stream().sorted().collect(Collectors.joining(", "));
     }
 
-    public TicketsSearchPage clickPopularFiltersButton(String nameOfFilter){
-        waitContent(popularFiltersButton);
-        popularFiltersButton.stream().filter(button -> button.getText().equals(nameOfFilter.toUpperCase(Locale.ROOT))).forEach(button -> button.click());
+    public TicketsSearchPage clickCountOfStopsFiltersFlag(String nameOfFilter){
+        waitContent(foundContent);
+        waitContent(flagsForSelectCountOfStops);
+        flagsForSelectCountOfStops.stream().filter(button -> button.getText().equals(nameOfFilter)).forEach(WebElement::click);
         return this;
     }
 
@@ -65,8 +65,9 @@ public class TicketsSearchPage extends BasePage{
         return this;
     }
 
-    public int checkSuite(){
-        return withoutSuite.size();
+    public int checkCountOfStops (){
+        waitContent(countOfStops);
+        return countOfStops.size();
     }
 
     public boolean checkGate(){
