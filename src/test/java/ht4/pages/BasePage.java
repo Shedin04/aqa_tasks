@@ -8,11 +8,14 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.List;
-
 public abstract class BasePage {
     protected WebDriver driver;
     protected final int TIMEOUT = 10;
+
+    public BasePage(WebDriver driver) {
+        this.driver = driver;
+        PageFactory.initElements(driver, this);
+    }
 
     @FindBy(xpath = "//a[@class='top-header__logo atb-logo']")
     private WebElement headerLogo;
@@ -25,11 +28,6 @@ public abstract class BasePage {
 
     @FindBy(xpath = "//div[@class='top-header__language-switch language-switch']//span[@class='language-switch__lang language-switch__lang--current']")
     private WebElement currentLanguage;
-
-    public BasePage(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
 
     public BasePage clickLogo(){
         waitFor(headerLogo);
@@ -64,16 +62,11 @@ public abstract class BasePage {
     }
 
     public void waitForPageLoadComplete() {
-        new WebDriverWait(driver, 90).until(
+        new WebDriverWait(driver, TIMEOUT*6).until(
                 webDriver -> ((JavascriptExecutor) webDriver).executeScript("return document.readyState").equals("complete"));
     }
 
     void waitFor(WebElement element) {
         new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(element));
-    }
-
-    void waitAndClick(int number, List<WebElement> resultOfDrop) {
-        new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfAllElements(resultOfDrop));
-        resultOfDrop.get(number).click();
     }
 }

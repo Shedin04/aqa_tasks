@@ -41,7 +41,7 @@ public abstract class BaseTest {
         return driver.get();
     }
 
-    public HomePage openPage() {
+    public HomePage getPage() {
         return new HomePage(getDriver());
     }
 }
