@@ -7,7 +7,6 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
@@ -118,11 +117,11 @@ public abstract class BasePage {
     }
 
     void waitFor(WebElement element) {
-        new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT)).until(ExpectedConditions.elementToBeClickable(element));
+        new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(element));
     }
 
     void waitAndClick(int number, List<WebElement> resultOfDrop) {
-        new WebDriverWait(driver, Duration.ofSeconds(TIMEOUT)).until(ExpectedConditions.visibilityOfAllElements(resultOfDrop));
+        new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfAllElements(resultOfDrop));
         resultOfDrop.get(number).click();
     }
 }
