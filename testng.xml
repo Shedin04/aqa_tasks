@@ -7,7 +7,7 @@
             <class name="ht4.tests.SmokeTest">
                 <methods>
                     <include name="checkLogo"/>
-                    <include name="checkPage"/>
+                    <include name="checkLanguage"/>
                 </methods>
             </class>
         </classes>
@@ -19,7 +19,7 @@
             <class name="ht4.tests.SmokeTest">
                 <methods>
                     <include name="checkLogo"/>
-                    <include name="checkPage"/>
+                    <include name="checkLanguage"/>
                 </methods>
             </class>
         </classes>

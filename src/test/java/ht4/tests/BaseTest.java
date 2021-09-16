@@ -5,6 +5,8 @@ import ht4.utils.CapabilityFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
+import org.testng.asserts.Assertion;
+import org.testng.asserts.SoftAssert;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -12,7 +14,10 @@ import java.net.URL;
 public abstract class BaseTest {
     protected static ThreadLocal<RemoteWebDriver> driver = new ThreadLocal<>();
     private final CapabilityFactory capabilityFactory = new CapabilityFactory();
-    private static final String HOMEPAGE_URL = "https://zakaz.atbmarket.com/";
+    protected static SoftAssert assertion = new SoftAssert();
+    protected static final String HOMEPAGE_URL = "https://zakaz.atbmarket.com/";
+    protected static final String UKR_TITLE = "Інтернет магазин АТБ — доставка продуктів додому в Києві та по всій Україні";
+    protected static final String RU_TITLE = "➤ Интернет магазин АТБ — доставка продуктов на дом в Киеве и по всей Украине";
 
     @BeforeMethod
     @Parameters(value = {"browser"})

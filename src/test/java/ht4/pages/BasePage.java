@@ -17,6 +17,15 @@ public abstract class BasePage {
     @FindBy(xpath = "//a[@class='top-header__logo atb-logo']")
     private WebElement headerLogo;
 
+    @FindBy(xpath = "//a[@class='top-header__logo atb-logo']/img[@alt='Логотип']")
+    private WebElement headerLogoPicture;
+
+    @FindBy(xpath = "//div[@class='top-header__language-switch language-switch']")
+    private WebElement changerLanguage;
+
+    @FindBy(xpath = "//div[@class='top-header__language-switch language-switch']//span[@class='language-switch__lang language-switch__lang--current']")
+    private WebElement currentLanguage;
+
     public BasePage(WebDriver driver) {
         this.driver = driver;
         PageFactory.initElements(driver, this);
@@ -26,6 +35,32 @@ public abstract class BasePage {
         waitFor(headerLogo);
         headerLogo.click();
         return this;
+    }
+
+    public BasePage clickToChangeLanguage(){
+        waitFor(changerLanguage);
+        changerLanguage.click();
+        return this;
+    }
+
+    public boolean checkLogo(){
+        return headerLogo.isDisplayed();
+    }
+
+    public boolean checkLanguageChanger(){
+        return changerLanguage.isDisplayed();
+    }
+
+    public String getCurrentLanguage(){
+        return currentLanguage.getText();
+    }
+
+    public String checkLogoPicture(){
+        return headerLogoPicture.getAttribute("src");
+    }
+
+    public String getTitle(){
+        return driver.getTitle();
     }
 
     public void waitForPageLoadComplete() {
