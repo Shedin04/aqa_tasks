@@ -1,11 +1,11 @@
 package ht4.tests;
 
 import ht4.pages.HomePage;
+import ht4.pages.ProductPage;
 import ht4.utils.CapabilityFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.*;
-import org.testng.asserts.Assertion;
 import org.testng.asserts.SoftAssert;
 
 import java.net.MalformedURLException;
@@ -41,7 +41,9 @@ public abstract class BaseTest {
         return driver.get();
     }
 
-    public HomePage getPage() {
+    public HomePage getHomePage() {
         return new HomePage(getDriver());
     }
+
+    public ProductPage getProductPage() {return new ProductPage(getDriver());}
 }
