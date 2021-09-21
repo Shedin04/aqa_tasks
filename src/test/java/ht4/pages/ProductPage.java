@@ -3,6 +3,8 @@ package ht4.pages;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ProductPage extends BasePage{
     public ProductPage(WebDriver driver) {
@@ -58,13 +60,13 @@ public class ProductPage extends BasePage{
     }
 
     public ProductPage clickToAddProduct(){
-        waitFor(addProduct);
+        waitClickable(addProduct);
         addProduct.click();
         return this;
     }
 
     public ProductPage clickToSubtractProduct(){
-        waitFor(subtractProduct);
+        waitClickable(subtractProduct);
         subtractProduct.click();
         return this;
     }

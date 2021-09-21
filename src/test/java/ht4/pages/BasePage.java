@@ -69,4 +69,8 @@ public abstract class BasePage {
     void waitFor(WebElement element) {
         new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.elementToBeClickable(element));
     }
+
+    void waitClickable(WebElement element) {
+        new WebDriverWait(driver,TIMEOUT).until(ExpectedConditions.elementToBeClickable(element));
+    }
 }
