@@ -19,10 +19,10 @@ public class TicketsSearchPage extends BasePage{
     @FindBy(xpath = "//div[@class='product-list__item fade-enter-done']")
     private List<WebElement> foundContent;
 
-    @FindBy(xpath = "//div[@class='filter-group --is-open']//div[@class='filter-row checkbox-row --with-hover']/div[@data-test-element='text']")
+    @FindBy(xpath = "//div[contains(text(),'пересад')]")
     private List<WebElement> flagsForSelectCountOfStops;
 
-    @FindBy(xpath = "(//div[@class='segment-route__path'])[1]/div[@class='segment-route__stop']")
+    @FindBy(xpath = "//div[contains(@class,'product-list__item')][2]//span[@class='segment-route__path-endpoint-iata']")
     private List<WebElement> countOfStops;
 
     @FindBy(xpath = "//div[@class='buy-button']//a[@data-test-element]")
@@ -49,9 +49,10 @@ public class TicketsSearchPage extends BasePage{
     }
 
     public TicketsSearchPage clickCountOfStopsFiltersFlag(String nameOfFilter){
-        waitContent(flagsForSelectCountOfStops);
         waitContent(countOfStops);
-        flagsForSelectCountOfStops.stream().filter(button -> button.getText().equals(nameOfFilter)).forEach(WebElement::click);
+        flagsForSelectCountOfStops.forEach(butt -> {
+            if (butt.getText().equals(nameOfFilter)) butt.click();
+        });
         return this;
     }
 
@@ -68,7 +69,8 @@ public class TicketsSearchPage extends BasePage{
     public int checkCountOfStops (){
         waitContent(foundContent);
         waitContent(countOfStops);
-        return countOfStops.size();
+        int arrAndDep = 2;
+        return countOfStops.size()-arrAndDep;
     }
 
     public boolean checkGate(){
