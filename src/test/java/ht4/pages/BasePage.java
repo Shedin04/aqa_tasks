@@ -29,16 +29,14 @@ public abstract class BasePage {
     @FindBy(xpath = "//div[@class='top-header__language-switch language-switch']//span[@class='language-switch__lang language-switch__lang--current']")
     private WebElement currentLanguage;
 
-    public BasePage clickLogo(){
+    public void clickLogo(){
         waitFor(headerLogo);
         headerLogo.click();
-        return this;
     }
 
-    public BasePage clickToChangeLanguage(){
+    public void clickToChangeLanguage(){
         waitFor(changerLanguage);
         changerLanguage.click();
-        return this;
     }
 
     public boolean checkLogo(){

@@ -14,12 +14,12 @@ public class HomePage extends BasePage{
     @FindBy(xpath = "//article[@class='catalog-item js-product-container   ']//a[@class='blue-link']")
     private List<WebElement> goodsOnHomePage;
 
-    public String getProductName(int nubmer){
+    public String getProductName(int number){
         int index = 0;
-        waitFor(goodsOnHomePage.get(nubmer));
-        String tempWord = goodsOnHomePage.get(nubmer).getText();
+        waitFor(goodsOnHomePage.get(number));
+        String tempWord = goodsOnHomePage.get(number).getText();
         while (!Character.isDigit(tempWord.charAt(index)))index++;
-        return goodsOnHomePage.get(nubmer).getText().substring(0, index-1);
+        return goodsOnHomePage.get(number).getText().substring(0, index-1);
     }
 
     public ProductPage selectProductOnHomePage(int number){

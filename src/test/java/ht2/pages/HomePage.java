@@ -82,15 +82,14 @@ public final class HomePage extends AbstractPage {
         return this;
     }
 
-    public List checkBanners(){
+    public List<WebElement> checkBanners(){
         waitFor(articleBox.get(0));
         return articleBox;
     }
 
-    public HomePage clickOnTheBanner(int number){
+    public void clickOnTheBanner(int number){
         waitFor(buttonOfBanner.get(number));
         buttonOfBanner.get(number).click();
-        return this; //"Articles" page in future
     }
 
     //Search
@@ -120,16 +119,14 @@ public final class HomePage extends AbstractPage {
         return this;
     }
 
-    public HomePage addCountInCart(int number){
+    public void addCountInCart(int number){
         waitFor(addCountOfProduct.get(number));
         addCountOfProduct.get(number).click();
-        return this;
     }
 
-    public HomePage clickToCloseCart(){
+    public void clickToCloseCart(){
         waitFor(closeCartButton);
         closeCartButton.click();
-        return this;
     }
 
     public boolean getTotalToPay(int result){

@@ -8,7 +8,6 @@ import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import java.util.List;
 
 public class AvicTest {
     private WebDriver driver;
@@ -25,12 +24,11 @@ public class AvicTest {
     //Search and cart
     @Test(priority = 1, description = "Check how search and filters work 1")
     public void searchAndFilterByPrice(){
-        List actual = new HomePage(driver).openPage().putIntoSearchForm("Мультиварка").searchButtonClick()
-                .setMaxPriceSlider("5000").setMinPriceSlider("4000").clickToApplyFilters().getSearchResults();
-        Assert.assertEquals(actual.size(), 12);
+        Assert.assertEquals(new HomePage(driver).openPage().putIntoSearchForm("Мультиварка").searchButtonClick()
+                .setMaxPriceSlider("5000").setMinPriceSlider("4000").clickToApplyFilters().getSearchResults().size(), 12);
     }
 
-    @Test(priority = 0, description = "Find a product on the homepage and add it to cart. Check the buttons in the cart and the total amount")
+    @Test(description = "Find a product on the homepage and add it to cart. Check the buttons in the cart and the total amount")
     public void FindProductAndAddToCart(){
         new HomePage(driver).openPage();
         for (int i = 0; i < 3; i++) {
@@ -42,11 +40,11 @@ public class AvicTest {
     }
 
     //Profile
-    @Test(priority = 0, description = "Check login to the profile with incorrect data")
+    @Test(description = "Check login to the profile with incorrect data")
     public void checkProfilePage(){
-        Assert.assertTrue(new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
+        Assert.assertEquals(new HomePage(driver).openPage().clickProfileButton().putInLoginForm("380995687950").putInPasswordForm("password")
                 .clickRememberMeFlag().clickRememberMeFlag().clickForgetPasswordButton().clickCancelForgetPasswordButton().enterButton()
-                .checkResultOfLogin().getText().equals("Неверные данные авторизации."));
+                .checkResultOfLogin().getText(), "Неверные данные авторизации.");
     }
 
     @Test(priority = 1, description = "Check reset password form with correct data")

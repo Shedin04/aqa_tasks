@@ -38,7 +38,7 @@ public class TicketsSearchPage extends BasePage{
     }
 
     public String getIATA(){
-        Map<String,String> result = new HashMap();
+        Map<String,String> result = new HashMap<>();
         waitContent(foundContent);
         List<String[]> temp = foundContent.stream().map(str -> str.getText().split("\\n")).collect(Collectors.toList());
         for (int i = 0; i < temp.get(0).length; i++) {

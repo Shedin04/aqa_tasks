@@ -17,7 +17,7 @@ public class TicketsSearchTests extends BaseTest{
     }
 
     @Test(priority = 2, description = "Check count of stops filters")
-    public void checkStopsFilters() throws InterruptedException {
+    public void checkStopsFilters() {
         String buttonName = "2 пересадки";
         Assert.assertEquals(new TicketsSearchPage(driver).clickCountOfStopsFiltersFlag(buttonName).checkCountOfStops(), 2);
     }

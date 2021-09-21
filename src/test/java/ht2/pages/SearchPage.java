@@ -19,15 +19,6 @@ public final class SearchPage extends AbstractPage{
     @FindBy(xpath = "//div[@class='form-group filter-group js_filter_parent open-filter-tooltip']//span[contains(.,'Показать')]")
     private WebElement applyFilters;
 
-    @FindBy(xpath = "//label[text()='Только товары в наличии']")
-    private WebElement onlyAvailable;
-
-    @FindBy(xpath = "//label[text()='Быстрая доставка']")
-    private WebElement fastDelivery;
-
-    @FindBy(xpath = "//a[@class='button-reset btn-reset-filter ']")
-    private WebElement resetFilters;
-
     public SearchPage(WebDriver driver) {
         super(driver);
     }
@@ -51,31 +42,13 @@ public final class SearchPage extends AbstractPage{
         return this;
     }
 
-    public SearchPage setOnlyAvailable(){
-        waitFor(onlyAvailable);
-        onlyAvailable.click();
-        return this;
-    }
-
-    public SearchPage setFastDelivery(){
-        waitFor(fastDelivery);
-        fastDelivery.click();
-        return this;
-    }
-
-    public SearchPage clickToResetFilters(){
-        waitFor(resetFilters);
-        resetFilters.click();
-        return this;
-    }
-
     public SearchPage clickToApplyFilters() {
         waitFor(applyFilters);
         applyFilters.click();
         return this;
     }
 
-    public List getSearchResults() {
+    public List<WebElement> getSearchResults() {
         return driver.findElements(By.xpath("//div[@class='prod-cart height']"));
     }
 }
