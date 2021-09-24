@@ -33,4 +33,14 @@ private final String departureRequest = "Харків";
     public void checkDepartureResults(){
         assertTrue(new TicketsSearchPage(driver).checkDepartureResults(departureRequest));
     }
+
+    @Test(priority = 2, description = "Check filters with flags")
+    public void checkFilterWithFlags(){
+        assertEquals(new TicketsSearchPage(driver).clickFilterCategory("Способи оплати", 1), "Карткою");
+    }
+
+    @Test(priority = 2, description = "Check filters with slider")
+    public void checkFilterWithSlider(){
+        assertEquals(new TicketsSearchPage(driver).clickFilterCategory("Вартість", 100), "5");
+    }
 }

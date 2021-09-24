@@ -3,6 +3,8 @@ package ht3.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.FindAll;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -28,6 +30,12 @@ public class TicketsSearchPage extends BasePage{
 
     @FindBy(xpath = "//div[@class='buy-button']//a[@data-test-element]")
     private List<WebElement> buyTicketButtons;
+
+    @FindAll({@FindBy(xpath = "//div[@class='filter-group departure-arrival-filter']"),@FindBy(xpath = "//div[@class='filter-group']")})
+    private List<WebElement> otherFilterCategories;
+
+    @FindAll({@FindBy(xpath = "//div[contains(@class,'open')]//div[@class='rc-slider-handle']"), @FindBy(xpath = "//div[contains(@class,'open')][last()]//label[descendant::span[contains(@class,'checkbox')]]//ancestor::div[contains(@class,'checkbox')]/div")}) //or
+    private List<WebElement> filterCategoryFields;
 
     private final String departureResultsLocator = "//div[@class='app__content']//div[contains(text(),'%s')]";
 
@@ -94,4 +102,17 @@ public class TicketsSearchPage extends BasePage{
         }   catch (Exception e){return false;}
         return true;
         }
+
+    public String clickFilterCategory(String filterName, int numberOrPosition){
+        try {waitContent(foundContent);}catch (Exception ignored){}
+        otherFilterCategories.stream().filter(filter -> filter.getText().equals(filterName)).findFirst().get().click();
+        if (filterCategoryFields.get(0).getAttribute("aria-valuenow")!=null) {
+            new Actions(driver).clickAndHold(filterCategoryFields.get(0)).moveByOffset(-numberOrPosition,0).build().perform();
+            return String.valueOf(filterCategoryFields.get(0).getAttribute("aria-valuenow").length());
+        }
+        else {
+            waitAndClick(numberOrPosition, filterCategoryFields);
+            return filterCategoryFields.get(numberOrPosition).getText();
+        }
     }
+}
