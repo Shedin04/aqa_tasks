@@ -31,6 +31,6 @@ private final String departureRequest = "Харків";
 
     @Test(description = "Check that result of search contains departure")
     public void checkDepartureResults(){
-        new TicketsSearchPage(driver).checkDepartureResults(departureRequest);
+        assertTrue(new TicketsSearchPage(driver).checkDepartureResults(departureRequest));
     }
 }

@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.HashMap;
 import java.util.List;
@@ -27,7 +29,7 @@ public class TicketsSearchPage extends BasePage{
     @FindBy(xpath = "//div[@class='buy-button']//a[@data-test-element]")
     private List<WebElement> buyTicketButtons;
 
-    private String departureResultsLocator = "//div[@class='app__content']//div[contains(text(),'%s')]";
+    private final String departureResultsLocator = "//div[@class='app__content']//div[contains(text(),'%s')]";
 
     //Gate
     @FindBy(xpath = "//span[@data-testid]")
@@ -75,19 +77,21 @@ public class TicketsSearchPage extends BasePage{
     }
 
     public boolean checkGate(){
+        System.out.println("test");
         try {
             waitFor(redirectPageGate);
-        } catch (Exception e){return false;}
-        return true;
-    }
-
-    public boolean checkDepartureResults(String departure){
-        try {
-            List<WebElement> departureResults = driver.findElements(By.xpath(String.format(departureResultsLocator, departure)));
-            waitFor(departureResults.get(0));
-        }catch (Exception e){
+        } catch (Exception e){
             return false;
         }
         return true;
+    }
+
+    public boolean checkDepartureResults(String departure) {
+        waitContent(foundContent);
+        List<WebElement> departureResults = driver.findElements(By.xpath(String.format(departureResultsLocator, departure)));
+        try {
+            new WebDriverWait(driver,TIMEOUT).until(ExpectedConditions.visibilityOf(departureResults.get(0)));
+        }   catch (Exception e){return false;}
+        return true;
         }
-}
+    }

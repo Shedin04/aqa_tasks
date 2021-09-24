@@ -63,11 +63,12 @@ public final class MainPage extends BasePage {
     public MainPage selectDeparture(String request, int number){
         waitFor(ticketsOrHotelsButton);
         waitFor(departureField);
-        departureField.click();
-        departureField.clear();
-        departureField.clear();
-        departureField.click();
-        departureField.sendKeys(request);
+        String tempDep = departureField.getAttribute("value");
+        while (departureField.getAttribute("value").equals(tempDep)) {
+            departureField.clear();
+            departureField.click();
+            departureField.sendKeys(request);
+        }
         waitAndClick(number, resultOfDrop);
         return this;
     }
