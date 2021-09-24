@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
+
 public abstract class BasePage {
     protected WebDriver driver;
     protected final int TIMEOUT = 10;
@@ -123,5 +124,9 @@ public abstract class BasePage {
     void waitAndClick(int number, List<WebElement> resultOfDrop) {
         new WebDriverWait(driver, TIMEOUT).until(ExpectedConditions.visibilityOfAllElements(resultOfDrop));
         resultOfDrop.get(number).click();
+    }
+
+    void waitContent(List<WebElement> elementList){
+        new WebDriverWait(driver,60).until(ExpectedConditions.visibilityOfAllElements(elementList));
     }
 }

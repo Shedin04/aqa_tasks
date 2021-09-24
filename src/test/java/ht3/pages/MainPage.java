@@ -2,6 +2,7 @@ package ht3.pages;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.CacheLookup;
 import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
@@ -15,19 +16,22 @@ public final class MainPage extends BasePage {
         super(driver);
     }
 
-    @FindBy(xpath = "//div[@class='page-header__tabs']//a[@class='form-tabs__link']")
+    @FindBy(xpath = "//ul[@class='form-tabs']//a[@class='form-tabs__link']")
     private WebElement ticketsOrHotelsButton;
 
     @FindBy(css = "#origin")
+    @CacheLookup
     private WebElement departureField;
 
     @FindBy(css = "#destination")
+    @CacheLookup
     private WebElement arrivalField;
 
     @FindBy(xpath = "//section//div[@data-testid]")
     private List<WebElement> resultOfDrop;
 
     @FindBy(xpath = "//div[@class='avia-form__field --dates']")
+    @CacheLookup
     private WebElement tripStart;
 
     @FindBy(xpath = "//div[@class='calendar__day-cell ']")
@@ -37,9 +41,11 @@ public final class MainPage extends BasePage {
     private List<WebElement> dates;
 
     @FindBy(xpath = "//label[@class='of_input_checkbox__label']")
+    @CacheLookup
     private WebElement flagOfBookingCom;
 
-    @FindBy(xpath = "//div[@class='avia-form__submit']/button")
+    @FindBy(xpath = "//button[@data-testid='form-submit']")
+    @CacheLookup
     private WebElement findTicketsButton;
 
     @Override
@@ -55,6 +61,7 @@ public final class MainPage extends BasePage {
     }
 
     public MainPage selectDeparture(String request, int number){
+        waitFor(ticketsOrHotelsButton);
         waitFor(departureField);
         departureField.click();
         departureField.clear();
