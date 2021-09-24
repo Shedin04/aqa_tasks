@@ -104,7 +104,7 @@ public class TicketsSearchPage extends BasePage{
         }
 
     public String clickFilterCategory(String filterName, int numberOrPosition){
-        try {waitContent(foundContent);}catch (Exception ignored){}
+        waitContent(countOfStops);
         otherFilterCategories.stream().filter(filter -> filter.getText().equals(filterName)).findFirst().get().click();
         if (filterCategoryFields.get(0).getAttribute("aria-valuenow")!=null) {
             new Actions(driver).clickAndHold(filterCategoryFields.get(0)).moveByOffset(-numberOrPosition,0).build().perform();
